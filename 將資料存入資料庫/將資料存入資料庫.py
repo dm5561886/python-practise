@@ -38,7 +38,7 @@ for i in med_count.items():
     city = i[0]
     counts = i[1]
     t = datetime.datetime.now()
-    print(f"INSERT INTO stocks VALUES ('{city}', {counts}, '{t}')")
+    print(f"INSERT INTO pharmacies VALUES ('{city}', {counts}, '{t}')")
     c.execute(f"INSERT INTO pharmacies VALUES ('{city}', {counts}, '{t}')")
     conn.commit()
 
