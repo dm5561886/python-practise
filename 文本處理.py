@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import jieba
 
 
 # 利用 requests 對 API 來源發送一個請求
@@ -15,4 +16,22 @@ for link in soup.find_all('h3', class_='rounded-thumb__title')[:4]:  # 前四篇
         'div', class_='article-content__paragraph').text.strip().replace('\n', ' ')
     news.append(news_content)
 
-print(news)
+
+# 精確模式斷詞
+# 定義變數名稱
+tokens = []
+for d in news:
+    token = list(jieba.cut(d, HMM=False))  # token = d 字串斷詞結果
+    tokens.append(token)
+
+word_count = {}
+for word in tokens:
+    for counts in word:
+        if counts in word_count:
+            word_count[counts] += 1
+        else:
+            word_count[counts] = 1
+
+word_count = dict(
+    sorted(word_count.items(), reverse=True, key=lambda item: item[1]))
+print(word_count)
