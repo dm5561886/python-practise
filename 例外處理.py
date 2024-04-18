@@ -24,7 +24,7 @@ while True:
     try:
         x = int(input("請輸入一個整數 n: "))
         if x <= 0:
-            raise ValueError
+            raise ValueError  # raise可讓程式強制引發指定的例外
         result = primes(x)
         print(", ".join(map(str, result)))
         break  # 跳出迴圈
