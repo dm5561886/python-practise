@@ -5,7 +5,7 @@ def twosum(nums, target):
         diff = target-num  # 計算與目標值的差值，尋找的另一個數字
         if diff in x:
             return [x[diff], i]
-        x[num] = i  # 將當前數字和 index 存入 visited 中
+        x[num] = i  # 將當前數字和 index 存入 x 中
 
     return []
 
