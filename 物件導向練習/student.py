@@ -9,3 +9,9 @@ class Student(Person):
 
     def print_school(self):
         print(self.school)
+
+
+student1 = Student("澤軒", 25, "高科大")
+student1.print_school()
+student1.print_name()
+student1.print_age()
