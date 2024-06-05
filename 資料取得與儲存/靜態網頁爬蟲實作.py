@@ -23,5 +23,14 @@ for row in rows:
 
 df = pd.DataFrame(
     data, columns=['幣別', '現金匯率本行買入', '現金匯率本行賣出', '即期匯率本行買入', '即期匯率本行賣出'])
+# 新增更新時間的欄位
+update = soup.find('span', class_='time').text.strip()
+df['更新時間'] = update
 
-print(df)
+
+# 建立 SQLite 資料庫連線
+conn = sqlite3.connect('test.db')
+# 將 DataFrame 的資料寫入資料庫
+df.to_sql('TWbank_rate', conn, if_exists='append', index=False)
+
+conn.close()
