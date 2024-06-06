@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 url = 'https://raw.githubusercontent.com/selva86/datasets/master/Cars93_miss.csv'
 df = pd.read_csv(url)
 
