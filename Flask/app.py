@@ -46,16 +46,22 @@ def handleUser(username):
         return "Hello" + username
 
 # 建立路徑 /getSum 對應的處理函式
-# 利用要求字串 (Query String) 提供彈性 /gerSum? max=最大數字
+# 利用要求字串 (Query String) 提供彈性 /gerSum? min=最小數字 max=最大數字
 
 
 @app.route("/getSum")
-def getSum():  # 1+2+3+....max
+def getSum():  # min+(min+1)+(min+2)+....max
+    # 接收要求字串中的參數資料
     maxnumbeer = request.args.get('max', 100)
     maxnumbeer = int(maxnumbeer)
+    minnumbeer = request.args.get('min', 1)
+    minnumbeer = int(minnumbeer)
+
+    # 以下運算 min+(min+1)+(min+2)+...+max 總和的迴圈邏輯
     result = 0
-    for i in range(1, maxnumbeer+1):
+    for i in range(minnumbeer, maxnumbeer+1):
         result += i
+    # 把結果回應給前端
     return '結果:' + str(result)
 
 
