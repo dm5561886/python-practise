@@ -9,14 +9,22 @@ app = Flask(
 )
 # 所有在 static 資料夾底下的檔案，都對應到網址路徑 /static /檔案名稱
 
+# 建立路徑 / 對應的處理函式
+
 
 @app.route("/")  # 建立網站首頁的回應方式
 def index():    # 回應網站首頁連線的函式
-    print('請求方法', request.method)  # 取得請求方法
-    print('通訊協定', request.scheme)  # 取得通訊協定
-    print('主機名稱', request)  # 取得主機名稱
-    print('路徑', request.path)  # 取得路徑
-    print('完整的網址', request.url)  # 取得完整的網址
+    lang = request.headers.get("accept-language")
+    print('語言偏好', lang)
+    if lang.startswith('en'):
+        return 'Hello Flask'
+    else:
+        return '您好，歡迎光臨'
+    # print('請求方法', request.method)  # 取得請求方法
+    # print('通訊協定', request.scheme)  # 取得通訊協定
+    # print('主機名稱', request)  # 取得主機名稱
+    # print('路徑', request.path)  # 取得路徑
+    # print('完整的網址', request.url)  # 取得完整的網址
     # print('瀏覽器和作業系統', request.headers.get("user-agent"))
     # print('語言偏好', request.headers.get('accept-language'))
     # print('引薦網址', request.headers.get('referrer'))
@@ -36,6 +44,17 @@ def handleUser(username):
         return "你好" + username
     else:
         return "Hello" + username
+
+# 建立路徑 /getSum 對應的處理函式
+# 利用要求字串 (Query String) 提供彈性
+
+
+@app.route("/getSum")
+def getSum():  # 1+2+3+....100
+    result = 0
+    for i in range(1, 101):
+        result += i
+    return '結果:' + str(result)
 
 
 # 啟動網站伺服器，可透過port參數指定埠號
