@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request  # 載入 Request 物件
+from flask import redirect  # 載入 redirect
 import json
 # 建立 Application 物件, 可以設定靜態檔案的路徑處理
 app = Flask(
@@ -15,17 +16,10 @@ app = Flask(
 @app.route("/")  # 建立網站首頁的回應方式
 def index():    # 回應網站首頁連線的函式
     lang = request.headers.get("accept-language")
-    print('語言偏好', lang)
     if lang.startswith('en'):
-        return json.dumps({
-            'Hello Flask': 'ok',
-            'text': 'Hello world'
-        })
+        return redirect('/en/')
     else:
-        return json.dumps({
-            'status': 'ok',
-            'text': '您好，歡迎光臨'
-        }, ensure_ascii=False)  # 指示不要用ASCII編碼處理中文
+        return redirect('/zn/')  # 導向
     # print('請求方法', request.method)  # 取得請求方法
     # print('通訊協定', request.scheme)  # 取得通訊協定
     # print('主機名稱', request)  # 取得主機名稱
@@ -36,6 +30,25 @@ def index():    # 回應網站首頁連線的函式
     # print('引薦網址', request.headers.get('referrer'))
     # return "Hello Flask"  # 回傳網站首頁的內容
 
+# 建立/en/對應的處理函式
+
+
+@app.route("/en/")
+def index_english():
+    return json.dumps({
+        'Hello Flask': 'ok',
+        'text': 'Hello world'
+    })
+
+# 建立/zn/對應的處理函式
+
+
+@app.route("/zn/")
+def index_chinese():
+    return json.dumps({
+        'status': 'ok',
+        'text': '您好，歡迎光臨'
+    }, ensure_ascii=False)  # 指示不要用ASCII編碼處理中文
 # 建立路徑/data 對應的處理函式
 
 
