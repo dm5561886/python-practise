@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request  # 載入 Request 物件
-
+import json
 # 建立 Application 物件, 可以設定靜態檔案的路徑處理
 app = Flask(
     __name__,
@@ -17,9 +17,15 @@ def index():    # 回應網站首頁連線的函式
     lang = request.headers.get("accept-language")
     print('語言偏好', lang)
     if lang.startswith('en'):
-        return 'Hello Flask'
+        return json.dumps({
+            'Hello Flask': 'ok',
+            'text': 'Hello world'
+        })
     else:
-        return '您好，歡迎光臨'
+        return json.dumps({
+            'status': 'ok',
+            'text': '您好，歡迎光臨'
+        }, ensure_ascii=False)  # 指示不要用ASCII編碼處理中文
     # print('請求方法', request.method)  # 取得請求方法
     # print('通訊協定', request.scheme)  # 取得通訊協定
     # print('主機名稱', request)  # 取得主機名稱
