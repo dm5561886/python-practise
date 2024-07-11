@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask  # 載入 Flask
 from flask import request  # 載入 Request 物件
 from flask import redirect  # 載入 redirect
 import json
