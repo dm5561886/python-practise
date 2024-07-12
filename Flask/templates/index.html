@@ -8,6 +8,15 @@
 
 <body>
     <h3>您好 {{ name }},歡迎光臨 這是首頁</h3>
+    <form action="/calculate">
+        數字: <input type="text" name="max" />
+        <button>計算結果</button>
+    </form>
+    <hr />
+    <form action="/show">
+        姓名: <input type="text" name="n" />
+        <button>點擊送出表單</button>
+    </form>
     <a href="/page">第二個網頁</a>
     <br />
     <img src="/head.png" />

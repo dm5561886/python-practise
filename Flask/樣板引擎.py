@@ -19,5 +19,21 @@ def page():
     return render_template('page.html')
 
 
+@app.route("/show")
+def show():
+    name = request.args.get('n', '')
+    return "您好 show頁面," + name
+
+
+@app.route("/calculate")
+def calculate():
+    math_max = request.args.get('max', '')
+    math_max = int(math_max)
+    result = 0
+    for i in range(1, math_max+1):
+        result += i
+    return render_template('result.html', data=result)
+
+
 if __name__ == "__main__":
     app.run(port=3000)
