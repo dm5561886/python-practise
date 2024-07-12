@@ -8,8 +8,10 @@ app = Flask(
     static_url_path='/'  # 靜態檔案對應的網址路徑
 )
 
+# 使用GET方法,處理路徑 "/" 的對應函式
 
-@app.route("/")  # 建立網站首頁的回應方式
+
+@app.route("/", methods=["GET"])  # 預設GET,可以省略不寫
 def index():
     return render_template('index.html', name='小明')
 
@@ -24,10 +26,15 @@ def show():
     name = request.args.get('n', '')
     return "您好 show頁面," + name
 
+# 使用POST方法,處理路徑 "/calculate" 的對應函式
 
-@app.route("/calculate")
+
+@app.route("/calculate", methods=["POST"])
 def calculate():
-    math_max = request.args.get('max', '')
+    # 接收 GET方法的 Query String
+    # math_max = request.args.get('max', '')
+
+    math_max = request.form['max']  # 接收 POST 方法的 Query String
     math_max = int(math_max)
     result = 0
     for i in range(1, math_max+1):
