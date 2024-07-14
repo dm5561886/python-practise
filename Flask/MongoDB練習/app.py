@@ -12,11 +12,11 @@ try:
 except Exception as e:
     print(e)
 # 把資料放進資料庫中
-db = client.test  # 選擇操作 test 資料庫
-collection = db.users  # 選擇操作 user 集合
+db = client.website  # 選擇操作 website 資料庫
+collection = db.members  # 選擇操作 members 集合
 # 把資料新增集合中
 collection.insert_one({
-    "name": "澤軒",
-    "gender": "男"
+    "email": "test@test.com",
+    "password": "test"
 })
 print('新增成功')
