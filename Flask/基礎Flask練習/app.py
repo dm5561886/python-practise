@@ -90,4 +90,4 @@ if __name__ == "__main__":檢查中，這樣可以確保程式在直接執行時
 """
 
 if __name__ == "__main__":
-    app.run(port=3000)
+    app.run(port=3000, debug=True)  # debug=True可以重新整理，不用重新啟動
