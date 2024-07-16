@@ -53,6 +53,31 @@ collection = db.users  # 選擇操作 users 集合
 # print(data["email"])
 
 # 一次取得多筆文件資料
-cursor = collection.find()
-for doc in cursor:
-    print(doc)
+# cursor = collection.find()
+# for doc in cursor:
+# print(doc)
+
+# 更新集合中的一筆文件資料 ".update_one({篩選條件}, {"$set":{更新的資訊}})"
+# result = collection.update_one(
+# {"email": "sam@test.com"}, {"$set": {"password": "sam"}})
+
+# $unset清除欄位
+# result = collection.update_one(
+# {"email": "sam@test.com"}, {"$unset": {"description": "Hi, I'm Tse-Xuan"}})
+
+# $inc 加減數字欄位
+# result = collection.update_one(
+# {"email": "sam@test.com"}, {"$inc": {"level": 0.5}})
+
+# $mul 乘除數字欄位
+# result = collection.update_one(
+# {"email": "sam@test.com"}, {"$mul": {"level": 0.5}})
+
+
+# print("符合篩選條件的文件數量", result.matched_count)
+# print("實際更新的文件數量", result.modified_count)
+
+# 更新集合中的多筆文件資料 ".update_many({篩選條件}, {"$set":{更新的資訊}})"
+result = collection.update_many({"level": 4}, {"$set": {"level": 2}})
+print("符合篩選條件的文件數量", result.matched_count)
+print("實際更新的文件數量", result.modified_count)
