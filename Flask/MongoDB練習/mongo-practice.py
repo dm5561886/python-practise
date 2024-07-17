@@ -28,15 +28,20 @@ collection = db.users  # 選擇操作 users 集合
 
 # 一次新增多筆資料 ".insert_many"
 # result_id = collection.insert_many([{
-# "name": "sam",
-# "email": "sam@test.com",
-# "password": "leo",
-# "level": "3"
-# }, {
-# "name": "amy",
-# "email": "amy@test.com",
-# "password": "amy",
-# "level": "3"
+# "name": "測試名稱一",
+# "email": "test1@test1.com",
+# "password": "test1",
+# "level": "5"},
+# {
+# "name": "測試名稱二",
+# "email": "test2@test2.com",
+# "password": "test2",
+# "level": "5"},
+# {
+# "name": "測試名稱三",
+# "email": "test3@test3.com",
+# "password": "test3",
+# "level": "5"
 # }])
 # print(result_id.inserted_ids)
 # print('新增資料成功')
@@ -78,6 +83,18 @@ collection = db.users  # 選擇操作 users 集合
 # print("實際更新的文件數量", result.modified_count)
 
 # 更新集合中的多筆文件資料 ".update_many({篩選條件}, {"$set":{更新的資訊}})"
-result = collection.update_many({"level": 4}, {"$set": {"level": 2}})
-print("符合篩選條件的文件數量", result.matched_count)
-print("實際更新的文件數量", result.modified_count)
+# result = collection.update_many({"level": 4}, {"$set": {"level": 2}})
+# print("符合篩選條件的文件數量", result.matched_count)
+# print("實際更新的文件數量", result.modified_count)
+
+# 刪除集合中的一筆文件資料 ".delete_one(篩選條件)"
+# result = collection.delete_one({
+# "email": "test3@test3.com"
+# })
+# print("實際上刪除資料有幾筆", result.deleted_count)
+
+# 刪除集合中的多筆文件資料 ".delete_many(篩選條件)"
+result = collection.delete_many({
+    "level": "5"
+})
+print("實際上刪除資料有幾筆", result.deleted_count)
