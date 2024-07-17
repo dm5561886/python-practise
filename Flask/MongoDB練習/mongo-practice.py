@@ -18,31 +18,29 @@ db = client.mywebsite  # 選擇操作 mywebsite 資料庫
 collection = db.users  # 選擇操作 users 集合
 # 把一個資料".insert_one"新增集合中，並取得新增資料的編號
 # result_id = collection.insert_one({
-# "name": "leo",
-# "email": "leo@test.com",
-# "password": "leo",
-# "level": "2"
-# })
+#    "name": "leo",
+#    "email": "leo@test.com",
+#    "password": "leo",
+#    "level": "2"
+#    })
 # .inserted_id=>取得新增資料的編號
 # print(result_id.inserted_id)
 
 # 一次新增多筆資料 ".insert_many"
 # result_id = collection.insert_many([{
-# "name": "測試名稱一",
-# "email": "test1@test1.com",
-# "password": "test1",
-# "level": "5"},
-# {
-# "name": "測試名稱二",
-# "email": "test2@test2.com",
-# "password": "test2",
-# "level": "5"},
-# {
-# "name": "測試名稱三",
-# "email": "test3@test3.com",
-# "password": "test3",
-# "level": "5"
-# }])
+#    "name": "測試名稱一",
+#    "email": "test1@test1.com",
+#    "password": "test1",
+#    "level": "5"
+#     },{
+#    "name": "測試名稱二",
+#    "email": "test2@test2.com",
+#    "password": "test2","level": "5"
+#     },{
+#    "name": "測試名稱三",
+#    "email": "test3@test3.com",
+#    "password": "test3",
+#    "level": "5"}])
 # print(result_id.inserted_ids)
 # print('新增資料成功')
 
@@ -60,7 +58,7 @@ collection = db.users  # 選擇操作 users 集合
 # 一次取得多筆文件資料
 # cursor = collection.find()
 # for doc in cursor:
-# print(doc)
+#    print(doc)
 
 # 更新集合中的一筆文件資料 ".update_one({篩選條件}, {"$set":{更新的資訊}})"
 # result = collection.update_one(
@@ -94,7 +92,37 @@ collection = db.users  # 選擇操作 users 集合
 # print("實際上刪除資料有幾筆", result.deleted_count)
 
 # 刪除集合中的多筆文件資料 ".delete_many(篩選條件)"
-result = collection.delete_many({
-    "level": "5"
-})
-print("實際上刪除資料有幾筆", result.deleted_count)
+# result = collection.delete_many({
+# "level": "5"
+# })
+# print("實際上刪除資料有幾筆", result.deleted_count)
+
+# 篩選集合中的文件資料
+# doc = collection.find_one({
+# "email": "leo@test.com"
+# })
+# print("取得的資料", doc["name"])
+
+# 複合篩選條件
+# 條件須同時成立 $and
+# doc = collection.find_one({"$and": [
+#    {"email": "amy@test.com"}, {"level": 2}
+# ]})
+# print("取得資料", doc)
+# 其中一個條件成立 $or
+# doc = collection.find({"$or": [
+#    {"email": "amy@test.com"}, {"level": 2}
+# ]})
+# for i in doc:
+#    print(i)
+
+# 篩選結果排序
+# 由小排到大 集合.find(篩選條件, sort=排序方式) 小到大"pymongo.ASCENDING"
+# cursor = collection.find({}, sort=[("level", pymongo.ASCENDING)])
+# for doc in cursor:
+#    print(doc)
+
+# 由大排到小 集合.find(篩選條件, sort=排序方式) 大到小"pymongo.DESCENDING"
+# cursor = collection.find({}, sort=[("level", pymongo.DESCENDING)])
+# for doc in cursor:
+#    print(doc)
