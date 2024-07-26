@@ -11,7 +11,6 @@ def twosum(nums, target):
 
 
 nums = [2, 7, 11, 15]
-target = 26
-n = len(nums)
+target = 9
 d = twosum(nums, target)
 print(d)
