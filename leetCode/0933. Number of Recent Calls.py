@@ -1,4 +1,11 @@
 from collections import deque
+"""
+演算法:
+1.把每次ping加入佇列
+2.把當下ping的時間減掉3000 並看和最前面ping的時間誰先誰後(因為限制3000豪秒)
+3.不再限制內就pop掉
+
+"""
 
 
 class RecentCounter:
