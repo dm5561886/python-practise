@@ -10,7 +10,7 @@ class RecentCounter:
         queue = self.queue
         # 把每次呼叫 ping 時間點紀錄到 deque
         queue.append(t)
-        # 當第一個紀錄的時間小於3000毫秒，
+        # 判斷前面時間呼叫是否有超過3000毫秒
         while queue[0] < t - 3000:
             queue.popleft()
         return len(queue)
