@@ -209,7 +209,7 @@ def index():
 
     # 繪製股票現金圓餅圖
     if us_dollars != 0 or taiwanese_dollars != 0 or total_stock_value != 0:
-        labels = ('USD', 'TWD', 'Stock')
+        labels = ('USD', 'TWD', 'stock')
         sizes = (us_dollars * exchange_rate,
                  taiwanese_dollars, total_stock_value)
         fig, ax = plt.subplots(figsize=(6, 5))
@@ -235,7 +235,8 @@ def index():
         'currency': exchange_rate,
         'total': total,
         'enumerated_cash': list(enumerate(cash_entries)),
-        'stock_info': stock_info
+        'stock_info': stock_info,
+        'enumerated_stock': list(enumerate(stock_info))
     }
 
     return render_template("index.html", data=data)
@@ -314,6 +315,22 @@ def submit_stock():
         {"$push": {"stock_entries": stock_entry}}
     )
 
+    return redirect("/index")
+
+
+@app.route("/del_stock", methods=["POST"])
+def del_stock():
+    stock_id = request.values['stock_id']
+    u_name = session["u_name"]
+    collection = db.user_data
+    collection.update_one(
+        {'u_name': u_name},
+        {'$unset': {f'stock_entries.{stock_id}': 1}}
+    )
+    collection.update_one(
+        {'u_name': u_name},
+        {'$pull': {'stock_entries': None}}
+    )
     return redirect("/index")
 
 

@@ -1,11 +1,18 @@
-{% extends "base.html" %}{% block content %}
-<div id="cash-info">
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+
+{% block content %}
+<div id="cash-info" class="section-container">
     <h2>現金庫存</h2>
     <table class="table table-bordered">
         <tr>
             <td>台幣總額:{{data['taiwanese_dollars']}} 元</td>
             <td>美金總額:{{data['us_dollars']}} 元</td>
-            <td>今日匯率(全球即時匯率API:https://tw.rter.info/howto_currencyapi.php): {{data['currency']}} </td>
+            <td>今日匯率(全球即時匯率API: <a href="https://tw.rter.info/howto_currencyapi.php" target="_blank">點擊查看</a>):
+                {{data['currency']}}</td>
             <td>現金總額: {{data['total']}} 元</td>
         </tr>
     </table>
@@ -32,9 +39,8 @@
                 <td>
                     <form action="/del_cash" method="post">
                         <input type="hidden" name="id" value="{{index}}" />
-                        <button class="btn btn-primary">刪除此筆資料</button>
+                        <button class="btn btn-danger btn-sm">刪除此筆資料</button>
                     </form>
-
                 </td>
             </tr>
             {% endfor %}
@@ -43,7 +49,7 @@
 </div>
 
 <hr />
-<div id="stock-info">
+<div id="stock-info" class="section-container">
     <h2>股票庫存</h2>
     <table class="table table-bordered">
         <thead>
@@ -59,32 +65,39 @@
             </tr>
         </thead>
         <tbody>
-            {% for d in data['stock_info'] %}
+            {% for index, data in data['enumerated_stock'] %}
             <tr>
-                <td>{{ d['stock_id'] }}</td>
-                <td>{{ d['shares'] }}</td>
-                <td>{{ d['current_price'] }}</td>
-                <td>{{ d['total_value'] }}</td>
-                <td>{{ d['value_percentage'] }}</td>
-                <td>{{ d['stock_cost'] }}</td>
-                <td>{{ d['average_cost'] }}</td>
-                <td>{{ d['rate_of_return'] }}</td>
+                <td>{{ data['stock_id'] }}</td>
+                <td>{{ data['shares'] }}</td>
+                <td>{{ data['current_price'] }}</td>
+                <td>{{ data['total_value'] }}</td>
+                <td>{{ data['value_percentage'] }}</td>
+                <td>{{ data['stock_cost'] }}</td>
+                <td>{{ data['average_cost'] }}</td>
+                <td>{{ data['rate_of_return'] }}</td>
+                <td>
+                    <form action="/del_stock" method="post">
+                        <input type="hidden" name="stock_id" value="{{index}}">
+                        <button class="btn btn-danger btn-sm">刪除此筆資料</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 
-<div id="chart" style="display: flex; flex-wrap: wrap">
+<div id="chart" class="chart-container">
     {% if data['show_pic_1'] %}
-    <figure style="flex: 0 1 500px; margin: 10px">
+    <figure class="chart-figure">
         <figcaption>股票庫存占比圖</figcaption>
-        <img src="{{ url_for('static', filename='piechart.jpg') }}" style="width: 100%" alt="股票庫存占比圖" />
+        <img src="{{ url_for('static', filename='piechart.jpg') }}" alt="股票庫存占比圖" />
     </figure>
-    {% endif %} {% if data['show_pic_2'] %}
-    <figure style="flex: 0 1 500px; margin: 10px">
+    {% endif %}
+    {% if data['show_pic_2'] %}
+    <figure class="chart-figure">
         <figcaption>資產比例占比圖</figcaption>
-        <img src="{{ url_for('static', filename='piechart2.jpg') }}" style="width: 100%" alt="資產比例占比圖" />
+        <img src="{{ url_for('static', filename='piechart2.jpg') }}" alt="資產比例占比圖" />
     </figure>
     {% endif %}
 </div>

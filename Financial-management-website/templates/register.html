@@ -7,67 +7,31 @@
     <title>會員註冊</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        body {
-            background-color: #ffffff;
-        }
-
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .form-container {
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-        }
-
-        .submit-container {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">個人理財網站</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="form-container">
+    <div class="register-container">
+        <div class="register-form">
+            <h2>註冊</h2>
             <form id="signupForm" action="/signup" method="POST" onsubmit="return validateForm()">
-                <h4>會員註冊</h4>
-                <div class="mb-3">
+                <div class="form-group">
                     <label for="u_name" class="form-label">姓名</label>
                     <input type="text" class="form-control" name="u_name" id="u_name">
-
+                </div>
+                <div class="form-group">
                     <label for="email" class="form-label">電子信箱</label>
                     <input type="email" class="form-control" name="email" id="email">
-
+                </div>
+                <div class="form-group">
                     <label for="password" class="form-label">密碼</label>
                     <input type="password" class="form-control" name="password" id="password">
                 </div>
-
-                <div class="submit-container">
-                    <button type="submit" class="btn btn-primary">註冊</button>
-                    <button type="button" class="btn btn-secondary ms-3"
-                        onclick="window.location.href='/'">返回登入</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary register-btn">註冊</button>
+                </div>
+                <div class="form-group signin-link">
+                    已經有帳號了嗎? <a href="/">返回登入</a>
                 </div>
             </form>
         </div>
